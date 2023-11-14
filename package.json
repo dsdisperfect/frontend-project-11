@@ -1,5 +1,5 @@
 {
-  "name": "RSS-reader",
+  "name": "@hexlet/code",
   "version": "1.0.0",
   "description": "RSS-reader pet-project",
   "main": "src/index.js",

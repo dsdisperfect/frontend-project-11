@@ -17,4 +17,4 @@ The RSS reader is a responsive web application that utilizes Bootstrap and JavaS
 make install
 ```
 
-visit: [visit website](https://frontend-project-11-gilt-sigma.vercel.app/)
+[visit website](https://frontend-project-11-gilt-sigma.vercel.app/)
