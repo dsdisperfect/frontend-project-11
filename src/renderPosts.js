@@ -6,6 +6,7 @@ export default (instance, posts) => {
     list.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
 
     const link = document.createElement('a');
+    link.classList.add('fw-bold');
     if (post.visited === false) {
       link.classList.add('fw-bold');
     } else {

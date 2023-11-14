@@ -37,7 +37,7 @@ const updater = (view) => {
     });
   }
 
-  setTimeout(() => updater(watcher), 5000);
+  setTimeout(() => updater(view), 5000);
 };
 
 export default () => {
@@ -57,6 +57,7 @@ export default () => {
         validation: true,
       },
       modal: null,
+      visitedPosts: [],
     };
 
     initialRender(instance);

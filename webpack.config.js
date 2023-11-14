@@ -36,7 +36,6 @@ export default {
       template: 'index.html',
     }),
   ],
-  watch: true,
   output: {
     clean: true,
   },

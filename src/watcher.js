@@ -19,12 +19,13 @@ export default (state, instance) => {
 
     if (path === 'posts') {
       renderPosts(instance, value);
-      state.posts.forEach((post) => {
-        document.querySelector(`.posts button[data-id='${post.id}']`).closest('.list-group-item').addEventListener('click', () => {
+      value.map((post) => {
+        document.querySelector(`.posts button[data-id='${post.id}']`).closest('.list-group-item').addEventListener('click', (e) => {
+          e.target.closest('li').querySelector('a').classList.add('fw-normal', 'link-secondary');
           post.visited = true;
-          renderPosts(instance, value);
           watcher.modal = post;
         });
+        return post;
       });
     }
 
