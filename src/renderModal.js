@@ -1,10 +1,13 @@
-export default (instance, post) => {
-  document.querySelector('.modal-title').textContent = post.title;
+export default (instance, post, elements) => {
+  const {
+    modalBody, modalTitle, modalButtonOpen, modalButtonClose,
+  } = elements;
+  modalTitle.textContent = post.title;
 
-  document.querySelector('.modal-body').textContent = post.description;
+  modalBody.textContent = post.description;
 
-  document.querySelector('.modal-footer .btn-primary').setAttribute('href', post.link);
-  document.querySelector('.modal-footer .btn-primary').textContent = instance.t('results.modal.open');
+  modalButtonOpen.setAttribute('href', post.link);
+  modalButtonOpen.textContent = instance.t('results.modal.open');
 
-  document.querySelector('.modal-footer .btn-secondary').textContent = instance.t('results.modal.close');
+  modalButtonClose.textContent = instance.t('results.modal.close');
 };

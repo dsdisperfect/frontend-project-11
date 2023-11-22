@@ -1,4 +1,5 @@
-export default (feed) => {
+export default (feed, elements) => {
+  const { feedsList } = elements;
   const item = document.createElement('li');
   item.classList.add('list-group-item', 'border-0', 'border-end-0');
 
@@ -12,5 +13,5 @@ export default (feed) => {
 
   item.append(title, description);
 
-  document.querySelector('.feeds ul').append(item);
+  feedsList.querySelector('ul').append(item);
 };

@@ -4,9 +4,6 @@
   "description": "RSS-reader pet-project",
   "main": "src/index.js",
   "type": "module",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dsdisperfect/frontend-project-11.git"

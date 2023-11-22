@@ -1,6 +1,6 @@
-export default (instance, posts) => {
-  const container = document.querySelector('.posts ul');
-  container.replaceChildren();
+export default (instance, posts, elements) => {
+  const ul = elements.postsList.querySelector('ul');
+  ul.replaceChildren();
   posts.forEach((post) => {
     const list = document.createElement('li');
     list.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
@@ -25,6 +25,6 @@ export default (instance, posts) => {
     button.dataset.bsTarget = '#modal';
     button.dataset.id = post.id;
     list.append(link, button);
-    container.append(list);
+    ul.append(list);
   });
 };
