@@ -1,4 +1,5 @@
-export default (instance, post, elements) => {
+export default (instance, state, elements) => {
+  const post = state.posts.find((el) => state.modal === el.id);
   const {
     modalBody, modalTitle, modalButtonOpen, modalButtonClose,
   } = elements;

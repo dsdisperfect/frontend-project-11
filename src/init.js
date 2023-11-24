@@ -4,7 +4,7 @@ import axios from 'axios';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { cloneDeep, uniqueId } from 'lodash';
 import resources from './locales/index.js';
-import initialRender from './initialRender.js';
+import renderInitial from './renders/renderInitial.js';
 import parser from './parser.js';
 import watcher from './watcher.js';
 
@@ -53,12 +53,12 @@ export default () => {
     const state = {
       feeds: [],
       posts: [],
+      visitedPosts: [],
       form: {
         status: 'ready',
         error: null,
       },
       modal: null,
-      visitedPosts: [],
     };
 
     const elements = {
@@ -73,18 +73,18 @@ export default () => {
       modalButtonOpen: document.querySelector('.modal-footer .btn-primary'),
       modalButtonClose: document.querySelector('.modal-footer .btn-secondary'),
     };
-    initialRender(instance, elements);
+    renderInitial(instance, elements);
 
-    const validate = (url) => {
-      const emailUrl = yup.string().required().url().notOneOf(state.feeds.map((e) => e.url));
-      return emailUrl.validate(url);
+    const validate = (url, feeds) => {
+      const schema = yup.string().required().url().notOneOf(feeds.map((e) => e.url));
+      return schema.validate(url);
     };
 
     elements.form.addEventListener('submit', (event) => {
       const formdata = new FormData(event.target);
       const url = formdata.get('url');
       event.preventDefault();
-      validate(url)
+      validate(url, state.feeds)
         .then(() => {
           watcher(state, instance, elements).form.status = 'loading';
           return getXML(url);
@@ -112,6 +112,12 @@ export default () => {
           watcher(state, instance, elements).form.error = e.message;
           watcher(state, instance, elements).form.status = 'ready';
         });
+    });
+    elements.postsList.addEventListener('click', (e) => {
+      e.target.closest('li').querySelector('a').classList.add('fw-normal', 'link-secondary');
+      const postId = e.target.dataset.id;
+      watcher(state, instance, elements).visitedPosts.push(postId);
+      watcher(state, instance, elements).modal = postId;
     });
     updater(watcher(state, instance, elements));
   });

@@ -1,13 +1,13 @@
-export default (instance, posts, elements) => {
+export default (instance, state, elements) => {
   const ul = elements.postsList.querySelector('ul');
   ul.replaceChildren();
-  posts.forEach((post) => {
+  state.posts.forEach((post) => {
     const list = document.createElement('li');
     list.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-start', 'border-0', 'border-end-0');
 
     const link = document.createElement('a');
     link.classList.add('fw-bold');
-    if (post.visited === false) {
+    if (!state.visitedPosts.includes(post.id)) {
       link.classList.add('fw-bold');
     } else {
       link.classList.add('fw-normal', 'link-secondary');
@@ -24,6 +24,7 @@ export default (instance, posts, elements) => {
     button.dataset.bsToggle = 'modal';
     button.dataset.bsTarget = '#modal';
     button.dataset.id = post.id;
+
     list.append(link, button);
     ul.append(list);
   });
