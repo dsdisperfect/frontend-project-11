@@ -75,6 +75,8 @@ export default () => {
     };
     renderInitial(instance, elements);
 
+    const watchedState = watcher(state, instance, elements);
+
     const validate = (url, feeds) => {
       const schema = yup.string().required().url().notOneOf(feeds.map((e) => e.url));
       return schema.validate(url);
@@ -84,14 +86,14 @@ export default () => {
       const formdata = new FormData(event.target);
       const url = formdata.get('url');
       event.preventDefault();
-      validate(url, state.feeds)
+      validate(url, watchedState.feeds)
         .then(() => {
-          watcher(state, instance, elements).form.status = 'loading';
+          watchedState.form.status = 'loading';
           return getXML(url);
         })
         .then((xml) => {
-          watcher(state, instance, elements).form.error = null;
-          watcher(state, instance, elements).form.validation = true;
+          watchedState.form.error = null;
+          watchedState.form.validation = true;
 
           const feed = parser(xml).feedInfo;
           const { posts } = parser(xml);
@@ -101,24 +103,24 @@ export default () => {
           });
           feed.url = url;
 
-          watcher(state, instance, elements).feeds.push(feed);
-          watcher(state, instance, elements).posts = [...posts, ...state.posts];
+          watchedState.feeds.push(feed);
+          watchedState.posts = [...posts, ...state.posts];
 
-          watcher(state, instance, elements).form.status = 'ready';
+          watchedState.form.status = 'ready';
         })
 
         .catch((e) => {
-          watcher(state, instance, elements).form.validation = false;
-          watcher(state, instance, elements).form.error = e.message;
-          watcher(state, instance, elements).form.status = 'ready';
+          watchedState.form.validation = false;
+          watchedState.form.error = e.message;
+          watchedState.form.status = 'ready';
         });
     });
     elements.postsList.addEventListener('click', (e) => {
       e.target.closest('li').querySelector('a').classList.add('fw-normal', 'link-secondary');
       const postId = e.target.dataset.id;
-      watcher(state, instance, elements).visitedPosts.push(postId);
-      watcher(state, instance, elements).modal = postId;
+      watchedState.visitedPosts.push(postId);
+      watchedState.modal = postId;
     });
-    updater(watcher(state, instance, elements));
+    updater(watchedState);
   });
 };
