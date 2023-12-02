@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 import i18next from 'i18next';
 import axios from 'axios';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { cloneDeep, uniqueId } from 'lodash';
 import resources from './locales/index.js';
 import renderInitial from './renders/renderInitial.js';
@@ -116,7 +115,6 @@ export default () => {
         });
     });
     elements.postsList.addEventListener('click', (e) => {
-      e.target.closest('li').querySelector('a').classList.add('fw-normal', 'link-secondary');
       const postId = e.target.dataset.id;
       watchedState.visitedPosts.push(postId);
       watchedState.modal = postId;

@@ -20,6 +20,10 @@ export default (state, instance, elements) => {
       renderPosts(instance, state, elements);
     }
 
+    if (path === 'visitedPosts') {
+      renderPosts(instance, state, elements);
+    }
+
     if (path === 'modal') {
       renderModal(instance, state, elements);
     }
